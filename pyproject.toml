@@ -1,0 +1,19 @@
+[project]
+name = "myproject"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "lightning>=2.5.5",
+    "matplotlib>=3.10.6",
+    "pandas>=2.3.2",
+    "pdoc>=15.0.4",
+    "scikit-learn>=1.7.2",
+    "seaborn>=0.13.2",
+    "tensorboard>=2.20.0",
+    "tensorboardx>=2.6.4",
+    "torch>=2.8.0",
+    "torchvision>=0.23.0",
+    "tqdm>=4.67.1",
+]

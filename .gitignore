@@ -1,0 +1,18 @@
+# Python Virtual Environment
+# Your terminal shows (py313ml), which is a virtual environment
+py313ml/
+.venv/
+venv/
+env/
+
+# Cache Files
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Large data directories that should not be versioned
+# If 'data/' is very large or contains sensitive data, ignore it.
+data/
+
+# Generated report files
+reports/
