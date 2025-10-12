@@ -14,6 +14,7 @@ from pytorch_lightning.loggers import TensorBoardLogger
 if __name__ == '__main__':
     """
     Train and validate the CarBikeClassifier model using PyTorch Lightning.
+    main modified by another colaborator (checking work with github)
 
     The training uses the CarBikeDataModule data loader and logs metrics via TensorBoard.
     After training and validation, the trained model weights are saved to the 'models' directory.
