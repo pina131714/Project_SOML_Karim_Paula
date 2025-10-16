@@ -16,3 +16,5 @@ data/
 
 # Generated report files
 reports/
+
+myproject/tb_logs/

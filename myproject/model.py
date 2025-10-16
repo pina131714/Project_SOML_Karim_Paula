@@ -6,7 +6,7 @@ from torch.utils.data import Subset, DataLoader
 import random
 import pytorch_lightning as pl
 import os
-from dataset import CarBikeDataModule
+from myproject.dataset import CarBikeDataModule
 from pytorch_lightning.loggers import TensorBoardLogger
 
 class CarBikeClassifier(pl.LightningModule):
@@ -30,14 +30,14 @@ class CarBikeClassifier(pl.LightningModule):
         and freezes the convolutional feature extractor.
         """
         super().__init__()
-        self.model = models.vgg11(weights=models.VGG11_Weights.IMAGENET1K_V1)
-        self.model.classifier[6] = nn.Linear(4096, 2)
+        self._model = models.vgg11(weights=models.VGG11_Weights.IMAGENET1K_V1)
+        self._model.classifier[6] = nn.Linear(4096, 2)
 
         # Freeze feature layers
-        for param in self.model.features.parameters():
+        for param in self._model.features.parameters():
             param.requires_grad = False
 
-        self.loss_fn = nn.CrossEntropyLoss()
+        self._loss_fn = nn.CrossEntropyLoss()
 
     def forward(self, x):
         """
@@ -53,7 +53,7 @@ class CarBikeClassifier(pl.LightningModule):
         torch.Tensor
             Output logits of shape (B, 2).
         """
-        return self.model(x)
+        return self._model(x)
 
     def training_step(self, batch, batch_idx):
         """
@@ -73,7 +73,7 @@ class CarBikeClassifier(pl.LightningModule):
         """
         xb, yb = batch
         out = self(xb)
-        loss = self.loss_fn(out, yb)
+        loss = self._loss_fn(out, yb)
         self.log('train_loss', loss, on_step=False, on_epoch=True, prog_bar=True)
         return loss
 

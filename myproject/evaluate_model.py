@@ -8,7 +8,7 @@ import numpy as np
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, accuracy_score
 from sklearn.calibration import CalibrationDisplay
 from torchvision import models
-from dataset import CarBikeDataModule
+from myproject.dataset import CarBikeDataModule
 from torch.utils.data import DataLoader
 from torchvision.transforms import ToPILImage
 

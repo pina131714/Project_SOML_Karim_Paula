@@ -25,9 +25,9 @@ class CarBikeDataModule(pl.LightningDataModule):
 
     def __init__(self, data_dir=os.path.join(os.path.dirname(__file__), '..', r'data/processed/Car-Bike-Dataset'), batch_size=8):
         super().__init__()
-        self.data_dir = data_dir
-        self.batch_size = batch_size
-        self.transform = models.VGG11_Weights.IMAGENET1K_V1.transforms()
+        self._data_dir = data_dir
+        self._batch_size = batch_size
+        self._transform = models.VGG11_Weights.IMAGENET1K_V1.transforms()
 
     def prepare_data(self):
         """
@@ -49,7 +49,7 @@ class CarBikeDataModule(pl.LightningDataModule):
         stage : str or None, optional
             Stage to set up ("fit", "validate", "test", or "predict"). Not used in this implementation.
         """
-        full_dataset = datasets.ImageFolder(self.data_dir, transform=self.transform)
+        full_dataset = datasets.ImageFolder(self._data_dir, transform=self._transform)
 
         bike_indices = [i for i, (_, label) in enumerate(full_dataset) if label == 0]  # Bike = 0
         car_indices = [i for i, (_, label) in enumerate(full_dataset) if label == 1]  # Car = 1
@@ -71,7 +71,7 @@ class CarBikeDataModule(pl.LightningDataModule):
         DataLoader
             DataLoader object for the training set.
         """
-        return DataLoader(self.train_dataset, batch_size=self.batch_size, shuffle=True)
+        return DataLoader(self.train_dataset, batch_size=self._batch_size, shuffle=True)
 
     def val_dataloader(self):
         """

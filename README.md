@@ -23,5 +23,5 @@ The dataset is provided by Kaggle.
 
 Terminal commands:
 uv run train.py
-uv run evaluate_model.py
+uv run -m myproject.evaluate_model
 uv run plot_training_curves.py
