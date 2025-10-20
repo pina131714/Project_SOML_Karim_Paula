@@ -7,6 +7,7 @@ env/
 
 # Cache Files
 __pycache__/
+.cache/
 *.pyc
 .ipynb_checkpoints/
 
@@ -14,10 +15,14 @@ __pycache__/
 # If 'data/' is very large or contains sensitive data, ignore it.
 data/
 
+# Archivos de build y logs
+dist/
+*.egg-info/
+tb_logs/
+myproject/tb_logs/
+
 # Generated report files
 reports/
-
-myproject/tb_logs/
 
 # IGNORAR ARCHIVOS GRANDES (MODELOS)
 models/car_bike_model.pth
