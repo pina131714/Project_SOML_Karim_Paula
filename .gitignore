@@ -18,3 +18,6 @@ data/
 reports/
 
 myproject/tb_logs/
+
+# IGNORAR ARCHIVOS GRANDES (MODELOS)
+models/car_bike_model.pth
