@@ -1,12 +1,13 @@
 [project]
 # IMPORTANT: Changed to a more unique name for PyPI
-name = "soml-carbike-pina-karim" 
+name = "carbike-classification-abushams-pina" 
 version = "0.1.0"
-description = "SOML Project (Practice 5) for car vs bike classification with Gradio."
+description = "SOML Project for car vs bike classification with Gradio demo."
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [ 
-    { name = "Karim y Paula", email = "your-email@example.com" },
+    { name = "Karim Abu-Shams", email = "abushams.147500@e.unavarra.es" },
+    { name = "Paula Pina", email = "pina.131714@e.unavarra.es" },
 ]
 
 license = { file = "LICENSE" }
@@ -17,7 +18,7 @@ classifiers = [
 ]
 dependencies = [
     "kagglehub>=0.3.13",
-    "lightning>=2.5.5", 
+    "lightning>=2.5.5",
     "matplotlib>=3.10.6",
     "pandas>=2.3.2",
     "scikit-learn>=1.7.2",
@@ -25,7 +26,8 @@ dependencies = [
     "tensorboard>=2.20.0",
     "torch>=2.8.0",
     "torchvision>=0.23.0",
-    "gradio>=4.0.0" 
+    "gradio>=4.0.0",
+    "pdoc>=15.0.4",
 ]
 
 [project.optional-dependencies]
@@ -37,11 +39,15 @@ dev = [
 [project.urls]
 Homepage = "https://github.com/pina131714/Project_SOML_Karim_Paula"
 Repository = "https://github.com/pina131714/Project_SOML_Karim_Paula"
+Docs = "https://pina131714.github.io/Project_SOML_Karim_Paula/"
 
 [project.scripts] 
-carbike-demo = "myproject.app:main" 
+carbike-demo = "carbike_classification.app:main" 
 
-
-# Esto soluciona el error "Multiple top-level packages"
 [tool.setuptools]
-packages = ["myproject"]
+packages = ["carbike_classification"]
+
+[tool.pdoc]
+modules = ["carbike_classification"]
+output_dir = "docs"
+

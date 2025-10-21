@@ -1,3 +1,4 @@
+# carbike_classification/model.py
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -6,7 +7,7 @@ from torch.utils.data import Subset, DataLoader
 import random
 import pytorch_lightning as pl
 import os
-from myproject.dataset import CarBikeDataModule
+from carbike_classification.dataset import CarBikeDataModule
 from pytorch_lightning.loggers import TensorBoardLogger
 
 class CarBikeClassifier(pl.LightningModule):
