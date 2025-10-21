@@ -1,6 +1,8 @@
 ## Cars vs Bike image classification
 This project's objective is to classify color images of bikes and cars using a pre-trained neural netwrok (VGG11).
 
+This project has been packaged as a PyPI module and includes an interactive Gradio demo.
+
 ## Requisites
 - Python dependencies are listed in 'pyproject.toml'.
 
@@ -22,6 +24,9 @@ The dataset is provided by Kaggle.
 3) Plot training curves (loss & accuracy): Run the plot_training_curves.py script located in 'myproject/'.
 
 Terminal commands:
-uv run train.py
+uv run python -m myproject.preprocess
+uv run python -m myproject.train
 uv run -m myproject.evaluate_model
-uv run plot_training_curves.py
+uv run -m myproject.plot_training_curves
+
+uv run python -m myproject.app

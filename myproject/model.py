@@ -24,7 +24,7 @@ class CarBikeClassifier(pl.LightningModule):
         Loss function used during training (CrossEntropyLoss).
     """
 
-    def __init__(self):
+    def __init__(self, learning_rate: float = 1e-3): 
         """
         Initializes the CarBikeClassifier model, replaces the final classifier layer,
         and freezes the convolutional feature extractor.
@@ -38,6 +38,7 @@ class CarBikeClassifier(pl.LightningModule):
             param.requires_grad = False
 
         self._loss_fn = nn.CrossEntropyLoss()
+        self.learning_rate = learning_rate 
 
     def forward(self, x):
         """
@@ -109,4 +110,5 @@ class CarBikeClassifier(pl.LightningModule):
         torch.optim.Optimizer
             Adam optimizer for training the model.
         """
-        return optim.Adam(self.parameters())
+
+        return optim.Adam(self.parameters(), lr=self.learning_rate)

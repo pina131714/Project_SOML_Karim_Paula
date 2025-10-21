@@ -1,3 +1,4 @@
+# myproject/dataset.py
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -12,18 +13,20 @@ class CarBikeDataModule(pl.LightningDataModule):
     PyTorch Lightning DataModule for loading and preparing a binary image classification dataset
     consisting of car and bike images.
 
-    This module assumes the dataset is organized in the standard ImageFolder format, with separate 
-    subdirectories for each class.
+    (Refactored for Practice 5)
+    This module now assumes a pre-split 'train' and 'test' folder structure
+    created by 'preprocess.py'.
 
     Parameters
     ----------
     data_dir : str, optional
-        Path to the directory containing the dataset. Defaults to '../data/processed/Car-Bike-Dataset'.
+        Path to the 'processed' folder WHICH CONTAINS 'train' and 'test'.
+        Defaults to '../data/processed'.
     batch_size : int, optional
         Number of samples per batch to load. Defaults to 8.
     """
 
-    def __init__(self, data_dir=os.path.join(os.path.dirname(__file__), '..', r'data/processed/Car-Bike-Dataset'), batch_size=8):
+    def __init__(self, data_dir=os.path.join(os.path.dirname(__file__), '..', r'data/processed'), batch_size=8):
         super().__init__()
         self._data_dir = data_dir
         self._batch_size = batch_size
@@ -31,56 +34,44 @@ class CarBikeDataModule(pl.LightningDataModule):
 
     def prepare_data(self):
         """
-        Placeholder for data preparation logic such as downloading.
-
-        In this case, the dataset is assumed to be local and already prepared.
+        Data is assumed to be prepared by 'myproject/preprocess.py'.
+        This function just checks if it exists.
         """
-        pass
+        train_path = os.path.join(self._data_dir, 'train')
+        if not os.path.exists(train_path):
+            print(f"Error: Training directory not found at: {train_path}")
+            print("Please run 'uv run python -m myproject.preprocess' first.")
+            raise FileNotFoundError(f"Directory not found: {train_path}")
 
     def setup(self, stage=None):
         """
-        Sets up the training and validation datasets.
-
-        It loads the full dataset from disk, applies transformations, and creates train/test splits 
-        with a fixed random seed for reproducibility.
-
-        Parameters
-        ----------
-        stage : str or None, optional
-            Stage to set up ("fit", "validate", "test", or "predict"). Not used in this implementation.
+        Sets up the training and validation (test) datasets.
+        
+        Loads datasets directly from 'train' and 'test' folders.
         """
-        full_dataset = datasets.ImageFolder(self._data_dir, transform=self._transform)
-
-        bike_indices = [i for i, (_, label) in enumerate(full_dataset) if label == 0]  # Bike = 0
-        car_indices = [i for i, (_, label) in enumerate(full_dataset) if label == 1]  # Car = 1
-
-        random.seed(42)
-
-        train_indices = bike_indices[:40] + car_indices[:40]
-        test_indices = bike_indices[40:] + car_indices[40:]
-
-        self.train_dataset = Subset(full_dataset, train_indices)
-        self.test_dataset = Subset(full_dataset, test_indices)
+        train_path = os.path.join(self._data_dir, 'train')
+        test_path = os.path.join(self._data_dir, 'test')
+        
+        self.train_dataset = datasets.ImageFolder(train_path, transform=self._transform)
+        self.test_dataset = datasets.ImageFolder(test_path, transform=self._transform)
+        
+        print(f"Data loaded: {len(self.train_dataset)} train images, {len(self.test_dataset)} test images.")
 
     def train_dataloader(self):
         """
         Returns the DataLoader for the training dataset.
-
-        Returns
-        -------
-        DataLoader
-            DataLoader object for the training set.
         """
-        return DataLoader(self.train_dataset, batch_size=self._batch_size, shuffle=True)
+        # num_workers > 0 speeds up data loading
+        return DataLoader(self.train_dataset, batch_size=self._batch_size, shuffle=True, num_workers=4)
 
     def val_dataloader(self):
         """
-        Returns the DataLoader for the validation dataset.
-
-        Returns
-        -------
-        DataLoader
-            DataLoader object for the validation set.
+        Returns the DataLoader for the validation (test) dataset.
         """
-        return DataLoader(self.test_dataset, batch_size=8, shuffle=False)
+        return DataLoader(self.test_dataset, batch_size=self._batch_size, shuffle=False, num_workers=4)
 
+    def test_dataloader(self):
+        """
+        Returns the DataLoader for the test dataset.
+        """
+        return DataLoader(self.test_dataset, batch_size=self._batch_size, shuffle=False, num_workers=4)
