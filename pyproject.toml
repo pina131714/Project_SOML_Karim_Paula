@@ -1,8 +1,7 @@
 [project]
-# IMPORTANT: Changed to a more unique name for PyPI
 name = "carbike-classification" 
 version = "0.1.0"
-description = "SOML Project for car vs bike classification with Gradio demo."
+description = "SOML Project for car vs bike classification with Gradio interface demo."
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [ 

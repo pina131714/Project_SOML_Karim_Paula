@@ -11,6 +11,7 @@ How to sync environment with uv on Linux terminal:
 2) Restart terminal
 3) Open terminal and change directory into project folder
 4) Run: `uv sync`
+5) (Optional but recommended) Activate the uv environment on terminal: `source .venv/bin/activate`
 
 ## Data source
 The dataset is provided by Kaggle.

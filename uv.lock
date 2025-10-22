@@ -404,7 +404,7 @@ wheels = [
 ]
 
 [[package]]
-name = "carbike-classification-soml"
+name = "carbike-classification"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [

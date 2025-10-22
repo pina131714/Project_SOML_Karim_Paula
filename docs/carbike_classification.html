@@ -27,7 +27,8 @@
   <ul>
     <li><a href="#requisites">Requisites</a></li>
     <li><a href="#data-source">Data source</a></li>
-    <li><a href="#how-to-run-the-code">How to run the code</a></li>
+    <li><a href="#how-to-run-the-code-with-scripts">How to run the code with scripts</a></li>
+    <li><a href="#how-to-run-from-testpypi">How to run from TestPyPI</a></li>
   </ul></li>
 </ul>
 
@@ -64,7 +65,8 @@ carbike_classification    </h1>
                         <div class="docstring"><h1 id="cars-vs-bike-image-classification">Cars vs Bike image classification</h1>
 
 <p>This project's objective is to classify color images of bikes and cars using a pre-trained neural netwrok (VGG11).
-This project has been packaged as a PyPI module and includes an interactive Gradio demo.</p>
+It has been packaged as a Gradio demo interface and uploaded to TestPyPi for easy visualization.
+TestPyPI link: <a href="https://test.pypi.org/project/carbike-classification/#description">https://test.pypi.org/project/carbike-classification/#description</a></p>
 
 <h2 id="requisites">Requisites</h2>
 
@@ -73,10 +75,11 @@ This project has been packaged as a PyPI module and includes an interactive Grad
 </ul>
 
 <p>How to sync environment with uv on Linux terminal:
-1) Install uv: curl -LsSf <a href="https://astral.sh/uv/install.sh">https://astral.sh/uv/install.sh</a> | sh
+1) Install uv: <code>curl -LsSf https://astral.sh/uv/install.sh | sh</code>
 2) Restart terminal
 3) Open terminal and change directory into project folder
-4) Run: uv sync</p>
+4) Run: <code>uv sync</code>
+5) (Optional but recommended) Activate the uv environment on terminal: <code>source .venv/bin/activate</code></p>
 
 <h2 id="data-source">Data source</h2>
 
@@ -84,22 +87,21 @@ This project has been packaged as a PyPI module and includes an interactive Grad
 
 <ul>
 <li>Link: <a href="https://www.kaggle.com/datasets/utkarshsaxenadn/car-vs-bike-classification-dataset">https://www.kaggle.com/datasets/utkarshsaxenadn/car-vs-bike-classification-dataset</a></li>
-<li>Original raw data: 'data/raw' (zip file)</li>
-<li>Subsampled data used for training: 'data/processed'</li>
+<li>Subsampled the data used for training. 80 images for train (40 bike, 40 car) and 20 for test (10 bike and 10 car). Data source located in: 'data/processed'</li>
 </ul>
 
-<h2 id="how-to-run-the-code">How to run the code</h2>
+<h2 id="how-to-run-the-code-with-scripts">How to run the code with scripts</h2>
 
-<p>0) Preprocess data: Run preprocess.py script located in 'carbike_classification/'.
-1) Train model: Run the train.py script located in 'carbike_classification/'.
-2) Evaluate model and generate figures: Run the evaluate_model.py script located in 'carbike_classification/'.
-3) Plot training curves (loss &amp; accuracy): Run the plot_training_curves.py script located in 'carbike_classification/'.</p>
+<p>0) Preprocess data: Run preprocess.py script located in 'carbike_classification/'. <code>uv run python -m <a href="carbike_classification/preprocess.html">carbike_classification.preprocess</a></code>
+1) Train model: Run the train.py script located in 'carbike_classification/'. <code>uv run python -m <a href="carbike_classification/train.html">carbike_classification.train</a></code>
+2) Evaluate model and generate figures: Run the evaluate_model.py script located in 'carbike_classification/'. <code>uv run -m <a href="carbike_classification/evaluate_model.html">carbike_classification.evaluate_model</a></code>
+3) Plot training curves (loss &amp; accuracy): Run the plot_training_curves.py script located in 'carbike_classification/'. <code>uv run -m <a href="carbike_classification/plot_training_curves.html">carbike_classification.plot_training_curves</a></code>
+4) Run Gradio interface demo: Run the app.py script located in 'carbike_classification/'. <code>uv run -m <a href="carbike_classification/app.html">carbike_classification.app</a></code></p>
 
-<p>Terminal commands:
-uv run python -m <a href="carbike_classification/preprocess.html">carbike_classification.preprocess</a>
-uv run python -m <a href="carbike_classification/train.html">carbike_classification.train</a>
-uv run -m <a href="carbike_classification/evaluate_model.html">carbike_classification.evaluate_model</a>
-uv run -m <a href="carbike_classification/plot_training_curves.html">carbike_classification.plot_training_curves</a></p>
+<h2 id="how-to-run-from-testpypi">How to run from TestPyPI</h2>
+
+<p>To run from PyPI, we run the following command: <code>uvx carbike-classification --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple</code>
+This will download the package from TestPyPI and run the app.py interface directly, per the pyproject.toml.</p>
 </div>
 
                         <input id="mod-carbike_classification-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
