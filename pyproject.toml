@@ -1,6 +1,6 @@
 [project]
 # IMPORTANT: Changed to a more unique name for PyPI
-name = "carbike-classification-abushams-pina" 
+name = "carbike-classification" 
 version = "0.1.0"
 description = "SOML Project for car vs bike classification with Gradio demo."
 readme = "README.md"
@@ -28,6 +28,8 @@ dependencies = [
     "torchvision>=0.23.0",
     "gradio>=4.0.0",
     "pdoc>=15.0.4",
+    "build>=1.3.0",
+    "twine>=6.2.0",
 ]
 
 [project.optional-dependencies]
@@ -40,9 +42,10 @@ dev = [
 Homepage = "https://github.com/pina131714/Project_SOML_Karim_Paula"
 Repository = "https://github.com/pina131714/Project_SOML_Karim_Paula"
 Docs = "https://pina131714.github.io/Project_SOML_Karim_Paula/"
+TestPyPI = "https://test.pypi.org/project/carbike-classification/#description"
 
 [project.scripts] 
-carbike-demo = "carbike_classification.app:main" 
+carbike_demo = "carbike_classification.app:main" 
 
 [tool.setuptools]
 packages = ["carbike_classification"]

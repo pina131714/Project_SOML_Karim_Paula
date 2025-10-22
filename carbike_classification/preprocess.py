@@ -25,7 +25,6 @@ def main(processed_dir=None):
         processed_dir (str or Path, optional): Directory to save processed data.
             Defaults to '../data/processed' relative to this script.
     """
-    # Por defecto ../data/processed relativo a este script
     if processed_dir is None:
         processed_dir = Path(__file__).resolve().parent.parent / "data" / "processed"
     else:
@@ -38,20 +37,16 @@ def main(processed_dir=None):
     TEST_BIKE_DIR = test_dir / "Bike"
     TEST_CAR_DIR = test_dir / "Car"
 
-    # Crear carpetas si no existen
     for path in [TRAIN_BIKE_DIR, TRAIN_CAR_DIR, TEST_BIKE_DIR, TEST_CAR_DIR]:
         path.mkdir(parents=True, exist_ok=True)
 
-    # Descargar dataset — devuelve carpeta ya extraída
     dataset_path = Path(kagglehub.dataset_download("utkarshsaxenadn/car-vs-bike-classification-dataset"))
     
-    # La carpeta extraída
     source_data_dir = dataset_path / "Car-Bike-Dataset"
     
     if not source_data_dir.exists():
         raise FileNotFoundError(f"Expected dataset folder not found in {dataset_path}")
 
-    # Procesar clases
     process_class(source_data_dir / "Bike", TRAIN_BIKE_DIR, TEST_BIKE_DIR, "Bike")
     process_class(source_data_dir / "Car", TRAIN_CAR_DIR, TEST_CAR_DIR, "Car")
 

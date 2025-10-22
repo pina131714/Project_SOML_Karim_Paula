@@ -54,19 +54,13 @@ def create_data_exploration_tab():
     """
     Create an enhanced Gradio tab for data exploration.
 
-    Allows users to:
-    - View basic statistics about the dataset.
-    - Visualize random samples by class.
-    - Select number of samples and class to display.
-    - See histograms of image dimensions (width & height) by class.
-
-    Returns
-    -------
-    gr.Blocks
-        Gradio Blocks object containing the enhanced data exploration interface.
+    Automatically loads random samples and histograms when the demo starts.
     """
+    import matplotlib
+    matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     import numpy as np
+    from PIL import Image
 
     with gr.Blocks() as tab:
         gr.Markdown("## 1. Data Exploration (Enhanced)")
@@ -104,9 +98,7 @@ def create_data_exploration_tab():
             }
             return stats
 
-        def get_samples_and_plot(selected_class, num_samples):
-            from PIL import Image
-
+        def get_samples_and_plot(selected_class="Car", num_samples=10):
             # Get class images for gallery
             class_path = PROCESSED_DIR / "train" / selected_class
             images = [p for p in class_path.glob("*") if p.suffix.lower() in ['.jpg', '.png']]
@@ -125,8 +117,6 @@ def create_data_exploration_tab():
 
             # Plot superimposed histograms
             fig, ax = plt.subplots(1, 2, figsize=(12, 5))
-
-            # Width histogram
             ax[0].hist(widths["Car"], bins=10, alpha=0.6, label="Car", color="skyblue")
             ax[0].hist(widths["Bike"], bins=10, alpha=0.6, label="Bike", color="orange")
             ax[0].set_title("Width Distribution by Class")
@@ -134,7 +124,6 @@ def create_data_exploration_tab():
             ax[0].set_ylabel("Count")
             ax[0].legend()
 
-            # Height histogram
             ax[1].hist(heights["Car"], bins=10, alpha=0.6, label="Car", color="skyblue")
             ax[1].hist(heights["Bike"], bins=10, alpha=0.6, label="Bike", color="orange")
             ax[1].set_title("Height Distribution by Class")
@@ -143,10 +132,15 @@ def create_data_exploration_tab():
             ax[1].legend()
 
             plt.tight_layout()
-
             return [str(p) for p in selected_images], fig
 
+        # Load dataset stats automatically
         tab.load(get_dataset_stats, outputs=[stats_output])
+
+        # Load initial gallery and histograms automatically (Car class by default)
+        tab.load(get_samples_and_plot, outputs=[gallery, hist_plot])
+
+        # Update when user changes options
         class_dropdown.change(
             get_samples_and_plot,
             inputs=[class_dropdown, num_samples_slider],
