@@ -45,7 +45,7 @@ Docs = "https://pina131714.github.io/Project_SOML_Karim_Paula/"
 TestPyPI = "https://test.pypi.org/project/carbike-classification/#description"
 
 [project.scripts] 
-carbike_demo = "carbike_classification.app:main" 
+carbike-classification = "carbike_classification.app:main" 
 
 [tool.setuptools]
 packages = ["carbike_classification"]

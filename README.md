@@ -25,7 +25,7 @@ The dataset is provided by Kaggle.
 4) Run Gradio interface demo: Run the app.py script located in 'carbike_classification/'. `uv run -m carbike_classification.app`
 
 ## How to run from TestPyPI
-To run from PyPI, we run the following command: `uvx package-name --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple`
+To run from PyPI, we run the following command: `uvx carbike-classification --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple`
 This will download the package from TestPyPI and run the app.py interface directly, per the pyproject.toml.
 
 
