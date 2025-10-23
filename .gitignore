@@ -21,8 +21,5 @@ dist/
 tb_logs/
 myproject/tb_logs/
 
-# Generated report files
-reports/
-
 # IGNORAR ARCHIVOS GRANDES (MODELOS)
 models/car_bike_model.pth
